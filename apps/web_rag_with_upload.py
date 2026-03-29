@@ -14,9 +14,12 @@ st.set_page_config(page_title="RAG Demo", page_icon="🤖", layout="wide")
 st.title("RAG Question-Answering Demo")
 
 load_dotenv()
-api_key = os.environ.get("OPENAI_API_KEY")
+#OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+OPENAI_API_KEY  = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
 
-if not api_key:
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+
+if not OPENAI_API_KEY:
     st.error("OPENAI_API_KEY is not set in the environment variables")
     st.stop()
 
