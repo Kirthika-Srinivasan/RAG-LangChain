@@ -11,15 +11,21 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.document_loaders import PyPDFLoader
 
 st.set_page_config(page_title="RAG Demo", page_icon="🤖", layout="wide")
-st.title("RAG Question-Answering Demo")
+st.title("RAG Analyze uploaded content and Question-Answering Demo")
 
 load_dotenv()
-#OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-OPENAI_API_KEY  = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+#api_key = os.environ.get("OPENAI_API_KEY")
+OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
 
 if not OPENAI_API_KEY:
     st.error("OPENAI_API_KEY is not set in the environment variables")
     st.stop()
+
+with st.expander("Click here for detailed instructions"):
+    st.write("1. Upload any Website url, txt file or pdf, that you want you analyze")
+    st.write("2. Click the Initialize RAG System button")
+    st.write("3. Ask any questions based on the url or file content and get answers")
+    st.write("4. Bonus: Get retrived answers to see the documents that were retrived by the RAG system")
 
 # Initialize session state for vector store
 if 'vectorstore' not in st.session_state:
